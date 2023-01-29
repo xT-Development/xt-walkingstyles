@@ -17,3 +17,6 @@ exports['xt-walkingstyles']:GetWalkStyle() -- Resets Walk Style to Saved Style
 # Dependencies:
 - ox_lib
 - qb-core
+
+### Credits:
+All of the walkingstyle scripts out there, as this is heavily inspired by all of them. This is just my version of it using player metadata.
