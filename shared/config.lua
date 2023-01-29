@@ -1,6 +1,6 @@
 Config = {}
 
-Config.Debug = false
+Config.Debug = true
 Config.Styles = {
     [1] = { name = 'Default', value = 'default' },
     [2] = { name = 'Alien', value = 'move_m@alien' },

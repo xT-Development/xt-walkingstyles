@@ -43,7 +43,7 @@ CreateThread(function()
         Wait(1000)
         local walking = GetPedMovementClipset(PlayerPedId())
         if walking ~= joaat(currentWalk) or currentWalk == "default" then -- Gets integer value of currentWalk, compares it to current clipset
-            WalkStyle(currentWalk)
+            GetWalkStyle()
             XTDebug('Reset Walk Style', 'Style: '..currentWalk)
         end
     end
@@ -54,12 +54,4 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function(playerData)
 	PlayerData = QBCore.Functions.GetPlayerData()
     Wait(500)
 	GetWalkStyle()-- Get Walking Style on Player Load
-end)
-
-AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-        PlayerData = QBCore.Functions.GetPlayerData()
-        Wait(500)
-        GetWalkStyle() -- Get Walking Style on Resource Start (If Restarted)
-    end
 end)

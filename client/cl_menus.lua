@@ -16,6 +16,7 @@ RegisterNetEvent('xt-walkstyles:client:Menu', function()
             args = Config.Styles[r].value
         }
     end
+
     lib.registerContext({
         id = 'walkingstyles_menu',
         title = 'Walking Styles',
