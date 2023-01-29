@@ -26,33 +26,8 @@ local function GetWalkStyle()
 end
 exports('GetWalkStyle', GetWalkStyle)
 
--- Walk Styles Menu --
-RegisterNetEvent('xt-walkstyles:client:Menu', function()
-    local walkStyles = {}
-
-    walkStyles[#walkStyles+1] = {
-        title = 'Refresh Current Walk Style',
-        serverEvent = 'xt-walkstyles:server:GetWalkStyle',
-    }
-
-    for r = 1, #Config.Styles, 1 do
-        walkStyles[#walkStyles+1] = {
-            title = Config.Styles[r].name,
-            event = 'xt-walkstyles:client:SetWalkStyle',
-            args = Config.Styles[r].value
-        }
-    end
-    lib.registerContext({
-        id = 'walkingstyles_menu',
-        title = 'Walking Styles',
-        options = walkStyles
-    })
-    lib.showContext('walkingstyles_menu')
-end)
-
 -- Set Walk Style --
 RegisterNetEvent('xt-walkstyles:client:SetWalkStyle', function(walk)
-    Switching = true
     currentWalk = walk
 	WalkStyle(walk)
 end)
@@ -60,11 +35,31 @@ end)
 -- Menu Command --
 RegisterCommand('walks', function()
     TriggerEvent('xt-walkstyles:client:Menu')
+end, false)
+
+-- Constantly Reset Walk Style --
+CreateThread(function()
+    while true do
+        Wait(1000)
+        local walking = GetPedMovementClipset(PlayerPedId())
+        if walking ~= joaat(currentWalk) or currentWalk == "default" then -- Gets integer value of currentWalk, compares it to current clipset
+            WalkStyle(currentWalk)
+            XTDebug('Reset Walk Style', 'Style: '..currentWalk)
+        end
+    end
 end)
 
 -- Player Shit --
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function(playerData)
 	PlayerData = QBCore.Functions.GetPlayerData()
     Wait(500)
-	TriggerServerEvent('xt-walkstyles:server:GetWalkStyle')
+	GetWalkStyle()-- Get Walking Style on Player Load
+end)
+
+AddEventHandler('onResourceStart', function(resource)
+    if resource == GetCurrentResourceName() then
+        PlayerData = QBCore.Functions.GetPlayerData()
+        Wait(500)
+        GetWalkStyle() -- Get Walking Style on Resource Start (If Restarted)
+    end
 end)
