@@ -42,7 +42,7 @@ CreateThread(function()
     while true do
         Wait(1000)
         local walking = GetPedMovementClipset(PlayerPedId())
-        if walking ~= joaat(currentWalk) or currentWalk == "default" then -- Gets integer value of currentWalk, compares it to current clipset
+        if (walking ~= joaat(currentWalk) and walking ~= joaat('move_ped_crouched')) or currentWalk == "default" then -- Gets integer value of currentWalk, compares it to current clipset
             GetWalkStyle()
             XTDebug('Reset Walk Style', 'Style: '..currentWalk)
         end
