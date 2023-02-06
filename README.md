@@ -15,7 +15,7 @@ exports['xt-walkingstyles']:GetWalkStyle() -- Resets Walk Style to Saved Style
 ```
 
 # Dependencies:
-- ox_lib
+- ox_lib or qb-menu
 - qb-core
 
 ### Credits:
