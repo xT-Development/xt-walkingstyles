@@ -1,11 +1,11 @@
-local QBCore = exports['qb-core']:GetCoreObject()
-
 -- Get Walking Style --
-RegisterServerEvent('xt-walkstyles:server:GetWalkStyle', function()
+lib.callback.register('xt-walkstyles:server:GetWalkStyle', function(source)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
-    TriggerClientEvent('xt-walkstyles:client:SetWalkStyle', src, Player.PlayerData.metadata['walkstyle'])
+    local style = Player.PlayerData.metadata['walkstyle']
+    XTDebug('Get Walk Style', 'Citizen ID: '..Player.PlayerData.citizenid..' | Walk: '..style)
+    return style
 end)
 
 -- Set Walking Style --
@@ -13,15 +13,8 @@ RegisterServerEvent('xt-walkstyles:server:SetWalkStyle', function(style)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
-    Player.PlayerData.metadata['walkstyle'] = style
-    Player.Functions.SetMetaData('walkstyle', Player.PlayerData.metadata['walkstyle'])
+    local currentStyle = Player.PlayerData.metadata['walkstyle']
+    if currentStyle == style then return end
+    Player.Functions.SetMetaData('walkstyle', style)
     XTDebug('Walk Style Set', 'Citizen ID: '..Player.PlayerData.citizenid..' | Walk: '..style)
-end)
-
--- Debug / Resource Print on Startup --
-AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-        Wait(500)
-        XTDebug('xT Development', 'dsc.gg/xtdev ^7| '..resource)
-    end
 end)
