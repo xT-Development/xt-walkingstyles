@@ -1,14 +1,16 @@
 local Utils = require('client.utils')
 
 -- Set Walk Style --
-RegisterNetEvent('xt-walkstyles:client:SetWalkStyle', function(walk)
+-- Use exports['xt-walkingstyles']:setWalkStyle(walk)
+local function walkStyle(walk)
     currentWalk = walk
-	Utils.SetWalkStyle(walk)
-end)
+    Utils.SetWalkStyle(walk)
+end
+exports('setWalkStyle', walkStyle)
 
 -- Menu Command --
 RegisterCommand('walks', function()
-    TriggerEvent('xt-walkstyles:client:Menu')
+    exports['xt-walkingstyles']:OpenWalkStylesMenu()
 end, false)
 
 -- Constantly Reset Walk Style --

@@ -13,7 +13,7 @@ RegisterServerEvent('xt-walkstyles:server:SetWalkStyle', function(style)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     if not Player then return end
-    local currentStyle = Player.PlayerData.metadata['walkstyle']
+    local currentStyle = Player.PlayerData.metadata.walkstyle
     if currentStyle == style then return end
     Player.Functions.SetMetaData('walkstyle', style)
     XTDebug('Walk Style Set', 'Citizen ID: '..Player.PlayerData.citizenid..' | Walk: '..style)

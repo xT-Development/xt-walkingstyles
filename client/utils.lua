@@ -22,7 +22,7 @@ end
 -- Reset Walking Style --
 function Utils.GetWalkStyle()
 	local walk = lib.callback.await('xt-walkstyles:server:GetWalkStyle', false)
-	if walk ~= nil then
+	if walk then
 		currentWalk = walk
 		Utils.SetWalkStyle(walk)
     end

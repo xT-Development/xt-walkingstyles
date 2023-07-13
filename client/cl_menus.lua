@@ -1,5 +1,5 @@
 -- Walk Styles Menu --
-RegisterNetEvent('xt-walkstyles:client:Menu', function()
+local function OpenWalkStylesMenu()
     local walkStyles = {}
 
     walkStyles[#walkStyles+1] = {
@@ -21,4 +21,7 @@ RegisterNetEvent('xt-walkstyles:client:Menu', function()
         options = walkStyles
     })
     lib.showContext('walkingstyles_menu')
-end)
+end
+exports('OpenWalkStylesMenu', OpenWalkStylesMenu)
+
+-- exports['xt-walkingstyles']:OpenWalkStylesMenu()
