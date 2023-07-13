@@ -10,8 +10,9 @@ local function OpenWalkStylesMenu()
     for r = 1, #Config.Styles, 1 do
         walkStyles[#walkStyles+1] = {
             title = Config.Styles[r].name,
-            event = 'xt-walkstyles:client:SetWalkStyle',
-            args = Config.Styles[r].value
+            onSelect = function()
+                exports['xt-walkingstyles']:setWalkStyle(Config.Styles[r].value)
+            end,
         }
     end
 
