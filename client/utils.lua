@@ -4,13 +4,13 @@ local Utils = {}
 
 function Utils.SetWalkStyle(walk)
 	local ped = cache.ped
+	currentWalk = walk
 	if walk == 'default' then
 		ResetPedMovementClipset(ped)
 		ResetPedWeaponMovementClipset(ped)
 		ResetPedStrafeClipset(ped)
 	else
-		RequestAnimSet(walk)
-		while not HasAnimSetLoaded(walk) do Wait(0) end
+		lib.requestAnimSet(walk)
 		SetPedMovementClipset(ped, walk)
 		ResetPedWeaponMovementClipset(ped)
 		ResetPedStrafeClipset(ped)
