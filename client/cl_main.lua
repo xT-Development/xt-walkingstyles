@@ -1,3 +1,4 @@
+local playerState = LocalPlayer.state
 local Utils = require 'client.utils'
 local config = require 'configs.client'
 
@@ -7,20 +8,18 @@ RegisterCommand('walks', function()
 end, false)
 
 -- Constantly Reset Walk Style --
-CreateThread(function()
-    local sleep = 500
-    while true do
-        if not cache.vehicle then
-            local clipset = GetPedMovementClipset(cache.ped)
-            local state = LocalPlayer.state?.walkstyle
-            if (clipset ~= state) and not Utils.ignoredClipsetCheck(clipset) then
-                Utils.setWalkStyle(state)
+lib.onCache('vehicle', function(vehicle)
+    if not vehicle then
+        setTimeout(0, function()
+            while not cache.vehicle do
+                local clipset = GetPedMovementClipset(cache.ped)
+                local state = playerState?.walkstyle
+                if (clipset ~= state) and not Utils.ignoredClipsetCheck(clipset) then
+                    Utils.setWalkStyle(state)
+                end
+                Wait(500)
             end
-            sleep = 500
-        else
-            sleep = 2000
-        end
-        Wait(sleep)
+        end)
     end
 end)
 
