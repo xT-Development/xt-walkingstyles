@@ -1,22 +1,9 @@
 # xt-walkingstyles
 
-# Installation:
-- Add the walking style metadata to `qb-core > server > player.lua`
-```lua
-PlayerData.metadata['walkstyle'] = PlayerData.metadata['walkstyle'] or 'default' -- xt-walkingstyles
-```
+<div align="center">
+  <a href="https://dsc.gg/xtdev"> <img align="center" src="https://user-images.githubusercontent.com/101474430/233859688-2b3b9ecc-41c8-41a6-b2e3-a9f1aad473ee.gif" /></a>
 
-# How to Use:
-- Use the `/walks` command to open the menu
-- Use the `GetWalkStyle()` export in other scripts to retrieve your walkstyle and set it back
-    - You should not need this as there is a thread constantly checking your walk style and resetting it if needed. But, it's there, use it if you need it.
-```lua
-exports['xt-walkingstyles']:GetWalkStyle() -- Resets Walk Style to Saved Style
-```
+  <a>[Discord](https://dsc.gg/xtdev)</a> | <a>[Tebex](https://xtdev.tebex.io)</a>
+</div>
 
-# Dependencies:
-- ox_lib
-- qb-core
-
-### Credits:
-All of the walkingstyle scripts out there, as this is heavily inspired by all of them. This is just my version of it using player metadata.
+# [Docs](https://app.gitbook.com/o/D4pgFjwoFN89ZcGfBcLe/s/HzYpJJjRn6Kaxmlr0Bsh/free-resources/walking-styles)

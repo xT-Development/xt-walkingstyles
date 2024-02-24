@@ -1,20 +1,27 @@
+local config = require 'configs.server'
+
 -- Get Walking Style --
 lib.callback.register('xt-walkstyles:server:GetWalkStyle', function(source)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if not Player then return end
-    local style = Player.PlayerData.metadata['walkstyle']
-    XTDebug('Get Walk Style', 'Citizen ID: '..Player.PlayerData.citizenid..' | Walk: '..style)
+    local charID = config.getCharId(src)
+    local style = GetResourceKvpString(('%s_walkstyle'):format(charID)) or 'default'
     return style
 end)
 
--- Set Walking Style --
-RegisterServerEvent('xt-walkstyles:server:SetWalkStyle', function(style)
+-- Save Walking Style When Player Leaves --
+AddEventHandler('playerDropped', function()
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    if not Player then return end
-    local currentStyle = Player.PlayerData.metadata['walkstyle']
-    if currentStyle == style then return end
-    Player.Functions.SetMetaData('walkstyle', style)
-    XTDebug('Walk Style Set', 'Citizen ID: '..Player.PlayerData.citizenid..' | Walk: '..style)
+    local charID = config.getCharId(src)
+    local setStyle = Player(src).state?.walkstyle
+    SetResourceKvp(('%s_walkstyle'):format(charID), setStyle)
+end)
+
+-- Save Walking Style For All Players --
+AddEventHandler('onResourceStop', function(resource)
+    if resource ~= GetCurrentResourceName() then return end
+    for _, src in ipairs(GetPlayers()) do
+        local charID = config.getCharId(src)
+        local setStyle = Player(src).state?.walkstyle or 'default'
+        SetResourceKvp(('%s_walkstyle'):format(charID), setStyle)
+    end
 end)

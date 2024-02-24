@@ -1,10 +1,10 @@
-currentWalk = 'default'
-
+local config = require 'configs.client'
 local Utils = {}
 
-function Utils.SetWalkStyle(walk)
+-- Sets Walkstyle --
+function Utils.setWalkStyle(style)
+	local walk = style or 'default'
 	local ped = cache.ped
-	currentWalk = walk
 	if walk == 'default' then
 		ResetPedMovementClipset(ped)
 		ResetPedWeaponMovementClipset(ped)
@@ -15,34 +15,37 @@ function Utils.SetWalkStyle(walk)
 		ResetPedWeaponMovementClipset(ped)
 		ResetPedStrafeClipset(ped)
 	end
-    TriggerServerEvent('xt-walkstyles:server:SetWalkStyle', walk)
-    XTDebug('Walk Style Changed', 'Style: '..walk)
-end
+end exports('SetWalkStyle', Utils.setWalkStyle)
 
--- Reset Walking Style --
-function Utils.GetWalkStyle()
-	local walk = lib.callback.await('xt-walkstyles:server:GetWalkStyle', false)
-	if walk ~= nil then
-		currentWalk = walk
-		Utils.SetWalkStyle(walk)
-    end
-end
-exports('GetWalkStyle', Utils.GetWalkStyle)
+-- Get Current Walk Style --
+function Utils.getWalkStyle()
+	return LocalPlayer.state?.walkstyle or 'default'
+end exports('GetWalkStyle', Utils.getWalkStyle)
 
 -- Check if Player is in an Ignored Clipset --
-function Utils.IgnoredClipsets()
-	if currentWalk == 'default' then return true end
+function Utils.ignoredClipsetCheck(clipset)
+	if clipset == joaat(LocalPlayer.state?['walkstyle']) then
+		return true
+	end
 
     local callback = false
-	local ped = cache.ped
-	local walk = GetPedMovementClipset(ped)
 
-    if walk == joaat(currentWalk) then return true end
-
-	for _,x in pairs(Config.IgnoredClipsets) do
-		if joaat(x) == walk then callback = true break end
+	for x = 1, #config.IgnoredClipsets do
+		if joaat(config.IgnoredClipsets[x]) == clipset then
+			callback = true
+			break
+		end
 	end
+
 	return callback
+end
+
+-- Sets Walk Style State --
+function Utils.setState(state)
+	local state = LocalPlayer.state
+	if state then
+		state:set('walkstyle', state, true)
+	end
 end
 
 return Utils
