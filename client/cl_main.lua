@@ -10,7 +10,7 @@ end, false)
 -- Constantly Reset Walk Style --
 lib.onCache('vehicle', function(vehicle)
     if not vehicle then
-        setTimeout(0, function()
+        SetTimeout(0, function()
             while not cache.vehicle do
                 local clipset = GetPedMovementClipset(cache.ped)
                 local state = playerState?.walkstyle
