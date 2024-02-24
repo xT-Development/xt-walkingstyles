@@ -6,4 +6,4 @@
   <a>[Discord](https://dsc.gg/xtdev)</a> | <a>[Tebex](https://xtdev.tebex.io)</a>
 </div>
 
-# [Docs](https://app.gitbook.com/o/D4pgFjwoFN89ZcGfBcLe/s/HzYpJJjRn6Kaxmlr0Bsh/free-resources/walking-styles)
+# [Docs](https://xtdev.gitbook.io/xt-docs/free-resources/walking-styles)
