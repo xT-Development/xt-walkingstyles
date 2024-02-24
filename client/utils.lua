@@ -41,10 +41,10 @@ function Utils.ignoredClipsetCheck(clipset)
 end
 
 -- Sets Walk Style State --
-function Utils.setState(state)
+function Utils.setState(newState)
 	local state = LocalPlayer.state
 	if state then
-		state:set('walkstyle', state, true)
+		state:set('walkstyle', newState, true)
 	end
 end
 
