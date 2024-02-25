@@ -29,11 +29,18 @@ AddStateBagChangeHandler('walkstyle', ('player:%s'):format(cache.serverId), func
 end)
 
 -- Handlers --
-RegisterNetEvent(config.PlayerLoad, function()
-    Utils.getWalkStyle()
+RegisterNetEvent(tostring(config.PlayerLoad), function()
+    Wait(100) -- I guess it needs this or it just doesnt set the walk style? Idk, fayoum
+    local walk = Utils.fetchWalkStyle()
+    Utils.setState(walk)
+end)
+
+RegisterNetEvent(tostring(config.PlayerUnload), function()
+    TriggerServerEvent('xt-walkstyles:server:saveWalkstyle')
 end)
 
 AddEventHandler('onResourceStart', function(resource)
     if resource ~= GetCurrentResourceName() then return end
-    Utils.getWalkStyle()
+    local walk = Utils.fetchWalkStyle()
+    Utils.setState(walk)
 end)

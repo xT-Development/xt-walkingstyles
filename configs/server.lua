@@ -1,9 +1,7 @@
 return {
-    getCharId = function(src)
+    charId = function(src)
         -- Use your own functions to get character ID
-        -- Otherwise, Renewed-Lib can work as a multi-framework bridge
-
-        local Bridge = exports['Renewed-Lib']:getLib()
-        Bridge.getCharId(src)
+        local Player = exports['qb-core']:GetCoreObject().Functions.GetPlayer(src)
+        return Player.PlayerData.citizenid
     end
 }

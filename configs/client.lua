@@ -1,7 +1,8 @@
 return {
 
-    -- Player Client Load Event Name --
+    -- Player Client Load/Unload Event Names --
     PlayerLoad = 'QBCore:Client:OnPlayerLoaded',
+    PlayerUnload = 'QBCore:Client:OnPlayerUnload',
 
     -- Clipsets That Will Be Ignored by Walkstyle Reset --
     IgnoredClipsets = {

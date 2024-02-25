@@ -15,16 +15,23 @@ function Utils.setWalkStyle(style)
         ResetPedWeaponMovementClipset(ped)
         ResetPedStrafeClipset(ped)
     end
-end exports('SetWalkStyle', Utils.setWalkStyle)
+end
 
 -- Get Current Walk Style --
 function Utils.getWalkStyle()
     return LocalPlayer.state?.walkstyle or 'default'
 end exports('GetWalkStyle', Utils.getWalkStyle)
 
+-- Init Walk Style on Load --
+function Utils.fetchWalkStyle()
+    local walkStyle = lib.callback.await('xt-walkstyles:server:getWalkStyle', false)
+    return walkStyle
+end
+
 -- Check if Player is in an Ignored Clipset --
 function Utils.ignoredClipsetCheck(clipset)
-    if clipset == joaat(LocalPlayer.state?['walkstyle']) then
+	local walkState = LocalPlayer.state?.walkstyle
+	if walkState and (clipset == joaat(walkState)) then
         return true
     end
 
@@ -46,6 +53,6 @@ function Utils.setState(newState)
     if state then
         state:set('walkstyle', newState, true)
     end
-end
+end exports('SetWalkStyle', Utils.setState)
 
 return Utils
