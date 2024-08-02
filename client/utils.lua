@@ -1,4 +1,6 @@
 local config = require 'configs.client'
+local randol_medical = (GetResourceState('randol_medical') == 'started')
+local playerState = LocalPlayer.state
 local Utils = {}
 
 -- Sets Walkstyle --
@@ -19,7 +21,7 @@ end
 
 -- Get Current Walk Style --
 function Utils.getWalkStyle()
-    return LocalPlayer.state?.walkstyle or 'default'
+    return playerState?.walkstyle or 'default'
 end exports('GetWalkStyle', Utils.getWalkStyle)
 
 -- Init Walk Style on Load --
@@ -30,8 +32,12 @@ end
 
 -- Check if Player is in an Ignored Clipset --
 function Utils.ignoredClipsetCheck(clipset)
-	local walkState = LocalPlayer.state?.walkstyle
-	if walkState and (clipset == joaat(walkState)) then
+    if randol_medical and (playerState.bleeding >= 35 or playerState.hasEffect) then
+        return true
+    end
+
+    local walkState = playerState?.walkstyle
+    if walkState and (clipset == joaat(walkState)) then
         return true
     end
 
@@ -49,7 +55,7 @@ end
 
 -- Sets Walk Style State --
 function Utils.setState(newState)
-    local state = LocalPlayer.state
+    local state = playerState
     if state then
         state:set('walkstyle', newState, true)
     end
