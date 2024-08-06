@@ -32,7 +32,7 @@ end
 
 -- Check if Player is in an Ignored Clipset --
 function Utils.ignoredClipsetCheck(clipset)
-    if randol_medical and (playerState.bleeding >= 35 or playerState.hasEffect) then
+    if randol_medical and (playerState?.bleeding and playerState?.bleeding >= 35 or playerState?.hasEffect) then
         return true
     end
 
