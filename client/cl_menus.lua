@@ -65,9 +65,24 @@ RegisterNetEvent('xt-walkstyles:client:openMenu', function()
         end
     }
 
+    local currentStyle = Utils.getWalkStyle()
+    local currentSyleName = Utils.getWalkstyleName(currentStyle)
+
+    walkStyles[#walkStyles+1] = {
+        title = "Current Walk Style:",
+        description = currentSyleName,
+        readOnly = true
+    }
+
     for x = 1, #config.Styles do
+        local setDescription = ""
+        if config.Styles[x].value == currentStyle then
+            setDescription = 'Currently Selected Walkstyle ✅'
+        end
+
         walkStyles[#walkStyles+1] = {
             title = config.Styles[x].name,
+            description = setDescription,
             onSelect = function()
                 Utils.setState(config.Styles[x].value)
             end,
