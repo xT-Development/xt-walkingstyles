@@ -3,6 +3,8 @@ local config = require 'configs.server'
 -- Handles Saving Walk Style --
 local function saveWalkStyle(src)
     local charID = config.charId(src)
+    if not charID then return end
+
     local setStyle = Player(src).state?.walkstyle
     SetResourceKvp(('%s_walkstyle'):format(charID), setStyle)
 end
