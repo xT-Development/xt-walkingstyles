@@ -24,6 +24,16 @@ function Utils.getWalkStyle()
     return playerState?.walkstyle or 'default'
 end exports('GetWalkStyle', Utils.getWalkStyle)
 
+function Utils.getWalkstyleName(style)
+    for x = 1, #config.Styles do
+        if config.Styles[x].value == style then
+            return config.Styles[x].name
+        end
+    end
+
+    return 'Default'
+end exports('GetWalkStyleName', Utils.getWalkstyleName)
+
 -- Init Walk Style on Load --
 function Utils.fetchWalkStyle()
     local walkStyle = lib.callback.await('xt-walkstyles:server:getWalkStyle', false)
