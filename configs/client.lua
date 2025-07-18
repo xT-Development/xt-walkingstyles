@@ -8,6 +8,8 @@ return {
     IgnoredClipsets = {
         'move_lester_caneup',       -- Walking Stick
         'move_ped_crouched',        -- Crouched
+        'move_m@injured',           -- Injured walks
+        'move_f@injured'
     },
 
     -- All Walkstyles --
